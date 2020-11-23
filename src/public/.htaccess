@@ -1,0 +1,66 @@
+###########################################################################
+# Rewrite機能
+# Rewrite機能とは、アクセスのあったURLを、正規表現で書き換えてから処理する機能
+# mod_rewriteモジュールが使用できる状態である必要がある
+###########################################################################
+
+# 機能の有効化
+RewriteEngine On
+
+# Rewrite処理のベースになるURL
+RewriteBase /
+
+# トレイリングスラッシュの有効化
+DirectorySlash Off
+
+# RewriteCond：RewriteRuleを実行するための条件式を定義
+# ファイル以外である
+RewriteCond %{REQUEST_FILENAME} !-f
+
+# ディレクトリである
+RewriteCond %{REQUEST_FILENAME} -d
+
+# index.html, index.php ではない
+RewriteCond %{REQUEST_FILENAME}/index.html !-f
+RewriteCond %{REQUEST_FILENAME}/index.php !-f
+
+# QSA: 元のURLのクエリ文字列を結合する
+# L: last -> マッチしたらRewriteを止める
+RewriteRule ^ index.php [QSA,L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.php [QSA,L]
+
+###########################################################################
+# ベーシック認証
+# 対象ページは、(secure_dir)に追加していく
+###########################################################################
+
+# PHPの設定情報を確認する為に設定確認ページを用意（/php_info）
+SetEnvIf Request_URI /php_info secure_dir
+
+# 全て許可した上で、secure_dirのページは許可しない
+<RequireAll>
+Require all granted
+  <RequireNone>
+  Require env secure_dir
+  </RequireNone>
+</RequireAll>
+
+# 認証方式
+AuthType Basic
+
+# ログインするユーザーのIDとパスワードを書いたファイルの場所
+AuthUserFile /var/www/html/public/.htpasswd
+
+# ログインするグループのIDとパスワードを書いたファイルの場所
+# ただし、BASIC認証はユーザーごとの認証の為、不要（特に指定が無いという意味で/dev/nullと記載）
+AuthGroupFile /dev/null
+
+# パスワードをかける領域名
+# たいていのブラウザでパスワード入力時にボックスの中に表示される
+Authname "Please enter your ID and password"
+
+# 認証された全ユーザーのアクセスを許可する
+require valid-user
