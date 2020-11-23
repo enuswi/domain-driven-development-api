@@ -1,0 +1,13 @@
+{
+    "require": {
+        "slim/slim": "4.*",
+        "slim/psr7": "^1.2",
+        "monolog/monolog": "^2.1",
+        "php-di/php-di": "^6.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "app\\": "classes/"
+        }
+    }
+}
