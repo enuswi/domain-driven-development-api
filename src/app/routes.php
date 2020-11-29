@@ -1,14 +1,19 @@
 <?php
+/**
+ * ルーティング設定
+ * @var \Slim\App $app
+ */
 
 use Fig\Http\Message\StatusCodeInterface;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Interfaces\RouteCollectorProxyInterface;
 
-/** @var \Slim\App $app */
-$app->get('/', function (Request $request, Response $response, $args) {
-    $response->getBody()->write("Hello world!");
-    return $response;
+$app->group('/api', function (RouteCollectorProxyInterface $group) {
+	$group->group('/v1', function (RouteCollectorProxyInterface $group) {
+		$group->get('/get_charas', \app\Controllers\CharaController::class)->setName('get_charas'); // キャラ一覧取得API
+		$group->get('/get_chara/{id:[0-9]+}', \app\Controllers\CharaController::class . ':getById')->setName('get_chara'); // キャラ取得API
+	});
 });
 
 /**
