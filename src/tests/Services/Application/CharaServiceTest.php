@@ -17,9 +17,15 @@ class CharaServiceTest extends TestCase
         $this->charaService = new CharaService($repository);
     }
 
-    public function testGetCharaById()
+    public function testGetCharaById_charaExists()
     {
         $chara = $this->charaService->getCharaById(1);
         $this->assertArrayHasKey('id', $chara);
+    }
+
+    public function testGetCharaById_CharaNotExists()
+    {
+        $chara = $this->charaService->getCharaById(6);
+        $this->assertEmpty($chara);
     }
 }
