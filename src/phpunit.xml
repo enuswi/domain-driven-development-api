@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpunit colors="true">
+    <testsuites>
+        <testsuite name="Test suite">
+            <!-- tests フォルダ配下のテストファイルをテストする -->
+            <directory>tests</directory>
+            <!-- サンプルテストを除外する -->
+            <exclude>tests/Sample/SampleTest.php</exclude>
+        </testsuite>
+    </testsuites>
+</phpunit>
