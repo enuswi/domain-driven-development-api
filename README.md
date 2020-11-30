@@ -15,4 +15,6 @@ composer install
 composer require slim/slim:"4.*"
 composer require slim/psr7
 composer require monolog/monolog
+
+composer require phpunit/phpunit --dev
 ```
