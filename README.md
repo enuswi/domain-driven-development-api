@@ -42,3 +42,4 @@ composer require phpunit/phpunit --dev
 
 - [ ] app/container.php, app/routes.phpのスケール
 - [ ] database何か見繕う
+- [ ] monologの使用（ラップして使いやすくするもあり）

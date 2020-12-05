@@ -11,10 +11,11 @@ RUN yum -y install yum-plugin-ovl
 
 # Setup repository
 RUN yum -y install yum-utils
-# remi-php74
+# remi-php74 -> remi-php80
 RUN rpm --import https://rpms.remirepo.net/RPM-GPG-KEY-remi
 RUN yum -y install https://rpms.remirepo.net/enterprise/remi-release-7.rpm
-RUN yum-config-manager --enable remi-php74
+##RUN yum-config-manager --enable remi-php74
+RUN yum-config-manager --enable remi-php80
 
 # Install PHP
 RUN yum -y install php php-devel php-mbstring php-pdo php-gd php-xml php-mcrypt php-pgsql
@@ -29,7 +30,7 @@ RUN yum -y install less
 
 # Install composer
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
-  && php -r "if (hash_file('sha384', 'composer-setup.php') === 'c31c1e292ad7be5f49291169c0ac8f683499edddcfd4e42232982d0fd193004208a58ff6f353fde0012d35fdd72bc394') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" \
+  && php -r "if (hash_file('sha384', 'composer-setup.php') === '756890a4488ce9024fc62c56153228907f1545c228516cbf63f885e036d37e9a59d27d63f46af1d4d07ee0f76181c7d3') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" \
   && php composer-setup.php \
   && php -r "unlink('composer-setup.php');" \
   && mv composer.phar /usr/local/bin/composer
