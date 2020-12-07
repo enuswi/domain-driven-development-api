@@ -4,7 +4,7 @@ namespace app\Repositories;
 
 use app\Models\Domain\Entities\Chara;
 
-interface ICharaRepository
+interface CharaRepositoryInterface
 {
     /**
      * キャラ一覧を取得する

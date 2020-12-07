@@ -6,7 +6,7 @@ use app\Models\Domain\ValueObjects\Chara\Age;
 use app\Models\Domain\ValueObjects\Chara\Firstname;
 use app\Models\Domain\ValueObjects\Chara\Lastname;
 
-class InMemoryCharaRepository extends AbstractInMemoryRepository implements ICharaRepository
+class InMemoryCharaRepository extends AbstractInMemoryRepository implements CharaRepositoryInterface
 {
     public function __construct()
     {

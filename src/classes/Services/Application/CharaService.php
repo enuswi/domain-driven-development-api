@@ -1,17 +1,17 @@
 <?php
 namespace app\Services\Application;
 
-use app\Repositories\ICharaRepository;
+use app\Repositories\CharaRepositoryInterface;
 use app\Models\Domain\Entities\Chara;
 
 class CharaService
 {
     /**
-     * @param ICharaRepository $charaRepository
+     * @param CharaRepositoryInterface $charaRepository
      */
     protected $charaRepository;
 
-    public function __construct(ICharaRepository $charaRepository)
+    public function __construct(CharaRepositoryInterface $charaRepository)
     {
         $this->charaRepository = $charaRepository;
     }

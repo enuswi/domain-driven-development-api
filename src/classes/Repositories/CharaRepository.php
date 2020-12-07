@@ -1,7 +1,7 @@
 <?php
 namespace app\Repositories;
 
-class CharaRepository implements ICharaRepository
+class CharaRepository implements CharaRepositoryInterface
 {
     /**
      * {@inheritdoc}

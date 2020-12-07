@@ -6,7 +6,7 @@ use app\Models\Domain\ValueObjects\Chara\Age;
 use app\Models\Domain\ValueObjects\Chara\Firstname;
 use app\Models\Domain\ValueObjects\Chara\Lastname;
 
-class MockCharaRepository implements ICharaRepository
+class MockCharaRepository implements CharaRepositoryInterface
 {
     /**
      * {@inheritdoc}
