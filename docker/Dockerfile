@@ -48,11 +48,16 @@ ENV PATH $PATH:/composer/vendor/bin
 RUN yum -y install php-pecl-xdebug
 RUN php -i | grep xdebug
 RUN cp -ap /etc/php.d/15-xdebug.ini /etc/php.d/15-xdebug.ini.old
-RUN echo 'xdebug.remote_autostart = On' >> /etc/php.d/15-xdebug.ini
-RUN echo 'xdebug.remote_enable = On' >> /etc/php.d/15-xdebug.ini
-RUN echo 'xdebug.remote_host = host.docker.internal' >> /etc/php.d/15-xdebug.ini
-RUN echo 'xdebug.remote_port = 9901' >> /etc/php.d/15-xdebug.ini
-RUN echo 'xdebug.remote_log=/tmp/xdebug.log' >> /etc/php.d/15-xdebug.ini
+#RUN echo 'xdebug.remote_autostart = On' >> /etc/php.d/15-xdebug.ini
+#RUN echo 'xdebug.remote_enable = On' >> /etc/php.d/15-xdebug.ini
+#RUN echo 'xdebug.remote_host = host.docker.internal' >> /etc/php.d/15-xdebug.ini
+#RUN echo 'xdebug.remote_port = 9901' >> /etc/php.d/15-xdebug.ini
+#RUN echo 'xdebug.remote_log=/tmp/xdebug.log' >> /etc/php.d/15-xdebug.ini
+RUN echo 'xdebug.mode=debug' >> /etc/php.d/15-xdebug.ini
+RUN echo 'xdebug.start_with_request=yes' >> /etc/php.d/15-xdebug.ini
+RUN echo 'xdebug.client_host=host.docker.internal' >> /etc/php.d/15-xdebug.ini
+RUN echo 'xdebug.client_port=9901' >> /etc/php.d/15-xdebug.ini
+RUN echo 'xdebug.log=/tmp/xdebug.log' >> /etc/php.d/15-xdebug.ini
 
 RUN systemctl enable httpd
 CMD ["/usr/sbin/httpd", "-DFOREGROUND"]
