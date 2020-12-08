@@ -7,6 +7,11 @@ use app\Models\Domain\ValueObjects\Chara\Lastname;
 
 class Chara extends AbstractEntity
 {
+    const ID        = 'id';
+    const FIRSTNAME = 'firstname';
+    const LASTNAME  = 'lastname';
+    const AGE       = 'age';
+
     /**
      * @param int $id
      */
@@ -77,10 +82,10 @@ class Chara extends AbstractEntity
     public function toArray(): array
     {
         return [
-            'id'        => $this->getId(),
-            'firstname' => $this->getFirstname()->getValue(),
-            'lastname'  => $this->getLastname()->getValue(),
-            'age'       => $this->getAge()->getValue(),
+            self::ID        => $this->getId(),
+            self::FIRSTNAME => $this->getFirstname()->getValue(),
+            self::LASTNAME  => $this->getLastname()->getValue(),
+            self::AGE       => $this->getAge()->getValue(),
         ];
     }
 }

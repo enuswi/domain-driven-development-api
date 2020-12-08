@@ -11,5 +11,9 @@ abstract class AbstractInMemoryRepository
         $this->createTable();
     }
 
+    /**
+     * テーブル作成
+     * @return void
+     */
     abstract protected function createTable(): void;
 }

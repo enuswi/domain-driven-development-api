@@ -1,16 +1,24 @@
 <?php
 namespace app\Repositories;
 
-use app\Models\Domain\Entities\Chara;
+use app\Models\Domain\Entities\CharaFactory;
 use app\Models\Domain\ValueObjects\Chara\Age;
 use app\Models\Domain\ValueObjects\Chara\Firstname;
 use app\Models\Domain\ValueObjects\Chara\Lastname;
 
 class InMemoryCharaRepository extends AbstractInMemoryRepository implements CharaRepositoryInterface
 {
+    /**
+     * @var CharaFactory $charaFactory
+     */
+    protected $charaFactory;
+
     public function __construct()
     {
         parent::__construct();
+        $this->charaFactory = new CharaFactory;
+
+        // TODO: テストデータ -> 単体テスト側で作るように改修予定
         $this->insert(1, new Firstname('義勇'), new Lastname('富岡'), new Age(19));
         $this->insert(2, new Firstname('しのぶ'), new Lastname('胡蝶'), new Age(18));
         $this->insert(3, new Firstname('杏寿郎'), new Lastname('煉獄'), new Age(20));
@@ -23,7 +31,7 @@ class InMemoryCharaRepository extends AbstractInMemoryRepository implements Char
     }
 
     /**
-     * キャラテーブル作成
+     * テーブル作成
      * @return void
      */
     protected function createTable(): void
@@ -36,7 +44,7 @@ class InMemoryCharaRepository extends AbstractInMemoryRepository implements Char
     }
 
     /**
-     * キャラテーブルへのキャラ作成
+     * レコード作成
      * @param int $id
      * @param Firstname $firstname
      * @param Lastname $lastname
@@ -63,17 +71,39 @@ class InMemoryCharaRepository extends AbstractInMemoryRepository implements Char
     }
 
     /**
+     * 全件取得
+     * @return array
+     */
+    protected function fetchAll(): array
+    {
+        $stmt = $this->pdo->prepare('SELECT * FROM Charas');
+        $stmt->execute();
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * idで指定した１件を取得する
+     * @param int $id
+     * @return array
+     */
+    protected function fetchById(int $id): array
+    {
+        $stmt = $this->pdo->prepare('SELECT * FROM Charas WHERE id = :id');
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function getList(): array
     {
         $list = [];
         try {
-            $stmt = $this->pdo->prepare('SELECT * FROM Charas');
-            $stmt->execute();
-            $charas = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+            $charas = $this->fetchAll();
             foreach ($charas as $chara) {
-                $list[] = new Chara($chara['id'], new Firstname($chara['firstname']), new Lastname($chara['lastname']), new Age($chara['age']));
+                $list[] = $this->charaFactory->create($chara);
             }
             return $list;
         } catch (\Exception $e) {
@@ -87,11 +117,8 @@ class InMemoryCharaRepository extends AbstractInMemoryRepository implements Char
     public function getById(int $id)
     {
         try {
-            $stmt = $this->pdo->prepare('SELECT * FROM Charas WHERE id = :id');
-            $stmt->bindParam(':id', $id);
-            $stmt->execute();
-            $chara = $stmt->fetch(\PDO::FETCH_ASSOC);
-            return new Chara($chara['id'], new Firstname($chara['firstname']), new Lastname($chara['lastname']), new Age($chara['age']));
+            $chara = $this->fetchById($id);
+            return $this->charaFactory->create($chara);
         } catch (\Exception $e) {
             return null;
         }

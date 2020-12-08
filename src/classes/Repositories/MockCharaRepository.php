@@ -2,6 +2,7 @@
 namespace app\Repositories;
 
 use app\Models\Domain\Entities\Chara;
+use app\Models\Domain\Entities\CharaFactory;
 use app\Models\Domain\ValueObjects\Chara\Age;
 use app\Models\Domain\ValueObjects\Chara\Firstname;
 use app\Models\Domain\ValueObjects\Chara\Lastname;
@@ -9,18 +10,67 @@ use app\Models\Domain\ValueObjects\Chara\Lastname;
 class MockCharaRepository implements CharaRepositoryInterface
 {
     /**
+     * @var CharaFactory $charaFactory
+     */
+    protected $charaFactory;
+
+    /**
+     * @var array $charas
+     */
+    protected $charas;
+
+    public function __construct()
+    {
+        $this->charaFactory = new CharaFactory;
+        $this->generateMockData();
+    }
+
+    /**
+     * モックデータの作成
+     * @return void
+     */
+    protected function generateMockData(): void
+    {
+        $this->charas = [
+            $this->charaFactory->create([
+                Chara::ID =>  1,
+                Chara::FIRSTNAME =>  new Firstname('炭治郎'),
+                Chara::LASTNAME =>  new Lastname('竈門'),
+                Chara::AGE =>  new Age(15)
+            ]),
+            $this->charaFactory->create([
+                Chara::ID =>  2,
+                Chara::FIRSTNAME =>  new Firstname('禰󠄀豆子'),
+                Chara::LASTNAME =>  new Lastname('竈門'),
+                Chara::AGE =>  new Age(14)
+            ]),
+            $this->charaFactory->create([
+                Chara::ID =>  3,
+                Chara::FIRSTNAME =>  new Firstname('善逸'),
+                Chara::LASTNAME =>  new Lastname('我妻'),
+                Chara::AGE =>  new Age(16)
+            ]),
+            $this->charaFactory->create([
+                Chara::ID =>  4,
+                Chara::FIRSTNAME =>  new Firstname('伊之助'),
+                Chara::LASTNAME =>  new Lastname('嘴平'),
+                Chara::AGE =>  new Age(15)
+            ]),
+            $this->charaFactory->create([
+                Chara::ID =>  5,
+                Chara::FIRSTNAME =>  new Firstname('カナヲ'),
+                Chara::LASTNAME =>  new Lastname('栗花落'),
+                Chara::AGE =>  new Age(16)
+            ]),
+        ];
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function getList(): array
     {
-        $charas = [
-            new Chara(1, new Firstname('炭治郎'), new Lastname('竈門'), new Age(15)),
-            new Chara(2, new Firstname('禰󠄀豆子'), new Lastname('竈門'), new Age(14)),
-            new Chara(3, new Firstname('善逸'), new Lastname('我妻'), new Age(16)),
-            new Chara(4, new Firstname('伊之助'), new Lastname('嘴平'), new Age(15)),
-            new Chara(5, new Firstname('カナヲ'), new Lastname('栗花落'), new Age(16))
-        ];
-        return $charas;
+        return $this->charas;
     }
 
     /**
@@ -28,19 +78,11 @@ class MockCharaRepository implements CharaRepositoryInterface
      */
     public function getById(int $id)
     {
-        switch ($id) {
-            case 1:
-                return new Chara($id, new Firstname('炭治郎'), new Lastname('竈門'), new Age(15));
-            case 2:
-                return new Chara($id, new Firstname('禰󠄀豆子'), new Lastname('竈門'), new Age(14));
-            case 3:
-                return new Chara($id, new Firstname('善逸'), new Lastname('我妻'), new Age(16));
-            case 4:
-                return new Chara($id, new Firstname('伊之助'), new Lastname('嘴平'), new Age(15));
-            case 5:
-                return new Chara($id, new Firstname('カナヲ'), new Lastname('栗花落'), new Age(16));
-            default:
-                return false;
+        // 配列のキーに併せる為に、1引く
+        $id --;
+        if ($id < 0 || count($this->charas) < $id) {
+            return false;
         }
+        return $this->charas[$id];
     }
 }

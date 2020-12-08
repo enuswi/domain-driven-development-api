@@ -9,6 +9,5 @@
  */
 $container->set('CharaRepository', function () {
     //return new \app\Repositories\CharaRepository();
-    //return new \app\Repositories\MockCharaRepository();
-    return new \app\Repositories\InMemoryCharaRepository();
+    return new \app\Repositories\MockCharaRepository();
 });

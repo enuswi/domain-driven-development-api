@@ -12,7 +12,7 @@ class Age extends AbstractValueObject
 
     public function __construct(int $value)
     {
-        // 正整数でなければ、例外を返す
+        // 正整数でなければ、例外を投げる
         if ($value < 0) {
             throw new \Exception('');
         }
