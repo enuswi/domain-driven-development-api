@@ -1,19 +1,19 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use app\Repositories\MockCharaRepository;
+use app\Repositories\InMemoryCharaRepository;
 use app\Services\Application\CharaService;
 
 class CharaServiceTest extends TestCase
 {
     /**
-     * CharaService $charaService
+     * @var CharaService $charaService
      */
     protected $charaService;
 
     protected function setUp(): void
     {
-        $repository = new MockCharaRepository;
+        $repository = new InMemoryCharaRepository;
         $this->charaService = new CharaService($repository);
     }
 
@@ -25,7 +25,7 @@ class CharaServiceTest extends TestCase
 
     public function testGetCharaById_CharaNotExists()
     {
-        $chara = $this->charaService->getCharaById(6);
+        $chara = $this->charaService->getCharaById(10);
         $this->assertEmpty($chara);
     }
 }
