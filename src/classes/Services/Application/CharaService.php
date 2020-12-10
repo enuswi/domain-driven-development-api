@@ -6,6 +6,7 @@ use app\Models\Domain\Entities\Chara;
 use app\Models\Domain\ValueObjects\Chara\Age;
 use app\Models\Domain\ValueObjects\Chara\Firstname;
 use app\Models\Domain\ValueObjects\Chara\Lastname;
+use app\Services\Domain\CharaService as CharaDomainService;
 
 class CharaService
 {
@@ -14,9 +15,17 @@ class CharaService
      */
     protected $charaRepository;
 
-    public function __construct(CharaRepositoryInterface $charaRepository)
-    {
+    /**
+     * @var CharaDomainService $charaDomainService
+     */
+    protected $charaDomainService;
+
+    public function __construct(
+        CharaRepositoryInterface $charaRepository,
+        CharaDomainService $charaDomainService
+    ) {
         $this->charaRepository = $charaRepository;
+        $this->charaDomainService = $charaDomainService;
     }
 
     /**
@@ -28,6 +37,10 @@ class CharaService
      */
     public function store(int $id, string $firstname, string $lastname, int $age): bool
     {
+        if ($this->charaDomainService->isExistById($id)) {
+            return false;
+        }
+
         if ($this->charaRepository->store($id, new Firstname($firstname), new Lastname($lastname), new Age($age))) {
             return true;
         }

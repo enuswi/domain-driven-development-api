@@ -6,25 +6,32 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Container\ContainerInterface;
 use app\Repositories\CharaRepository;
 use app\Services\Application\CharaService;
+use app\Services\Domain\CharaService as CharaDomainService;
 
 class CharaController extends AbstractController
 {
     /**
-     * @param CharaService $charaService
+     * @var CharaService $charaService
      */
     protected $charaService;
 
     /**
-     * @param CharaRepository $charaRepository
+     * @var CharaRepository $charaRepository
      */
     protected $charaRepository;
+
+    /**
+     * @var CharaDomainService $charaDomainService
+     */
+    protected $charaDomainService;
 
     public function __construct(ContainerInterface $container)
     {
         parent::__construct($container);
         // DIコンテナから'CharaRepository'を取得
         $this->charaRepository = $container->get('CharaRepository');
-        $this->charaService = new CharaService($this->charaRepository);
+        $this->charaDomainServie = new CharaDomainService($this->charaRepository);
+        $this->charaService = new CharaService($this->charaRepository, $this->charaDomainService);
     }
 
     /**
