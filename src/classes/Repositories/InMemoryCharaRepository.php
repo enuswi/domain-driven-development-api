@@ -17,17 +17,6 @@ class InMemoryCharaRepository extends AbstractInMemoryRepository implements Char
     {
         parent::__construct();
         $this->charaFactory = new CharaFactory;
-
-        // TODO: テストデータ -> 単体テスト側で作るように改修予定
-        //$this->insert(1, new Firstname('義勇'), new Lastname('富岡'), new Age(19));
-        //$this->insert(2, new Firstname('しのぶ'), new Lastname('胡蝶'), new Age(18));
-        //$this->insert(3, new Firstname('杏寿郎'), new Lastname('煉獄'), new Age(20));
-        //$this->insert(4, new Firstname('天元'), new Lastname('宇髄'), new Age(23));
-        //$this->insert(5, new Firstname('無一郎'), new Lastname('時透'), new Age(14));
-        //$this->insert(6, new Firstname('蜜璃'), new Lastname('甘露寺'), new Age(19));
-        //$this->insert(7, new Firstname('行冥'), new Lastname('悲鳴嶼'), new Age(27));
-        //$this->insert(8, new Firstname('小芭内'), new Lastname('伊黒'), new Age(21));
-        //$this->insert(9, new Firstname('実弥'), new Lastname('不死川'), new Age(21));
     }
 
     /**

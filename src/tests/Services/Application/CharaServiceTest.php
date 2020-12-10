@@ -59,4 +59,24 @@ class CharaServiceTest extends TestCase
         $chara = $this->charaService->getCharaById(10);
         $this->assertEmpty($chara);
     }
+
+    /**
+     * キャラ一覧の取得に成功
+     * @return void
+     */
+    public function test_get_charas_success()
+    {
+        $this->charaService->store(1, '義勇', '富岡', 19);
+        $this->charaService->store(2, 'しのぶ', '胡蝶', 18);
+        $this->charaService->store(3, '杏寿郎', '煉獄', 20);
+        $this->charaService->store(4, '天元', '宇髄', 23);
+        $this->charaService->store(5, '無一郎', '時透', 14);
+        $this->charaService->store(6, '蜜璃', '甘露寺', 19);
+        $this->charaService->store(7, '行冥', '悲鳴嶼', 27);
+        $this->charaService->store(8, '小芭内', '伊黒', 21);
+        $this->charaService->store(9, '実弥', '不死川', 21);
+
+        $charas = $this->charaService->getCharaList();
+        $this->assertEquals(9, count($charas));
+    }
 }
