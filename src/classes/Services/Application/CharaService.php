@@ -21,11 +21,10 @@ class CharaService
     protected $charaDomainService;
 
     public function __construct(
-        CharaRepositoryInterface $charaRepository,
-        CharaDomainService $charaDomainService
+        CharaRepositoryInterface $charaRepository
     ) {
         $this->charaRepository = $charaRepository;
-        $this->charaDomainService = $charaDomainService;
+        $this->charaDomainService = new CharaDomainService($charaRepository);
     }
 
     /**

@@ -3,7 +3,6 @@
 use PHPUnit\Framework\TestCase;
 use app\Repositories\InMemoryCharaRepository;
 use app\Services\Application\CharaService;
-use app\Services\Domain\CharaService as CharaDomainService;
 
 class CharaServiceTest extends TestCase
 {
@@ -12,16 +11,10 @@ class CharaServiceTest extends TestCase
      */
     protected $charaService;
 
-    /**
-     * @var CharaDomainService $charaDomainService
-     */
-    protected $charaDomainService;
-
     protected function setUp(): void
     {
         $repository = new InMemoryCharaRepository;
-        $charaDomainService = new CharaDomainService($repository);
-        $this->charaService = new CharaService($repository, $charaDomainService);
+        $this->charaService = new CharaService($repository);
     }
 
     /**
