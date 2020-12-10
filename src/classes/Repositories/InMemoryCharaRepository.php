@@ -19,15 +19,15 @@ class InMemoryCharaRepository extends AbstractInMemoryRepository implements Char
         $this->charaFactory = new CharaFactory;
 
         // TODO: テストデータ -> 単体テスト側で作るように改修予定
-        $this->insert(1, new Firstname('義勇'), new Lastname('富岡'), new Age(19));
-        $this->insert(2, new Firstname('しのぶ'), new Lastname('胡蝶'), new Age(18));
-        $this->insert(3, new Firstname('杏寿郎'), new Lastname('煉獄'), new Age(20));
-        $this->insert(4, new Firstname('天元'), new Lastname('宇髄'), new Age(23));
-        $this->insert(5, new Firstname('無一郎'), new Lastname('時透'), new Age(14));
-        $this->insert(6, new Firstname('蜜璃'), new Lastname('甘露寺'), new Age(19));
-        $this->insert(7, new Firstname('行冥'), new Lastname('悲鳴嶼'), new Age(27));
-        $this->insert(8, new Firstname('小芭内'), new Lastname('伊黒'), new Age(21));
-        $this->insert(9, new Firstname('実弥'), new Lastname('不死川'), new Age(21));
+        //$this->insert(1, new Firstname('義勇'), new Lastname('富岡'), new Age(19));
+        //$this->insert(2, new Firstname('しのぶ'), new Lastname('胡蝶'), new Age(18));
+        //$this->insert(3, new Firstname('杏寿郎'), new Lastname('煉獄'), new Age(20));
+        //$this->insert(4, new Firstname('天元'), new Lastname('宇髄'), new Age(23));
+        //$this->insert(5, new Firstname('無一郎'), new Lastname('時透'), new Age(14));
+        //$this->insert(6, new Firstname('蜜璃'), new Lastname('甘露寺'), new Age(19));
+        //$this->insert(7, new Firstname('行冥'), new Lastname('悲鳴嶼'), new Age(27));
+        //$this->insert(8, new Firstname('小芭内'), new Lastname('伊黒'), new Age(21));
+        //$this->insert(9, new Firstname('実弥'), new Lastname('不死川'), new Age(21));
     }
 
     /**
@@ -67,6 +67,7 @@ class InMemoryCharaRepository extends AbstractInMemoryRepository implements Char
         } catch (\Exception $e) {
             // TODO monolog
             $this->pdo->rollBack();
+            throw $e;
         }
     }
 
@@ -78,20 +79,39 @@ class InMemoryCharaRepository extends AbstractInMemoryRepository implements Char
     {
         $stmt = $this->pdo->prepare('SELECT * FROM Charas');
         $stmt->execute();
-        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        if ($charas = $stmt->fetchAll(\PDO::FETCH_ASSOC)) {
+            return $charas;
+        }
+        return [];
     }
 
     /**
      * idで指定した１件を取得する
      * @param int $id
-     * @return array
+     * @return array|null
      */
-    protected function fetchById(int $id): array
+    protected function fetchById(int $id): ?array
     {
         $stmt = $this->pdo->prepare('SELECT * FROM Charas WHERE id = :id');
         $stmt->bindParam(':id', $id);
         $stmt->execute();
-        return $stmt->fetch(\PDO::FETCH_ASSOC);
+        if ($chara = $stmt->fetch(\PDO::FETCH_ASSOC)) {
+            return $chara;
+        }
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function store(int $id, Firstname $firstname, Lastname $lastname, Age $age): bool
+    {
+        try {
+            $this->insert($id, $firstname, $lastname, $age);
+            return true;
+        } catch (\Exception $e) {
+            return false;
+        }
     }
 
     /**
@@ -103,7 +123,7 @@ class InMemoryCharaRepository extends AbstractInMemoryRepository implements Char
         try {
             $charas = $this->fetchAll();
             foreach ($charas as $chara) {
-                $list[] = $this->charaFactory->create($chara);
+                $list[] = $this->charaFactory->factory($chara);
             }
             return $list;
         } catch (\Exception $e) {
@@ -117,8 +137,11 @@ class InMemoryCharaRepository extends AbstractInMemoryRepository implements Char
     public function getById(int $id)
     {
         try {
-            $chara = $this->fetchById($id);
-            return $this->charaFactory->create($chara);
+            if ($chara = $this->fetchById($id)) {
+                return $this->charaFactory->factory($chara);
+            }
+
+            throw new \Exception();
         } catch (\Exception $e) {
             return null;
         }

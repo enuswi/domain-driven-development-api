@@ -32,37 +32,56 @@ class MockCharaRepository implements CharaRepositoryInterface
     protected function generateMockData(): void
     {
         $this->charas = [
-            $this->charaFactory->create([
-                Chara::ID =>  1,
-                Chara::FIRSTNAME =>  new Firstname('炭治郎'),
-                Chara::LASTNAME =>  new Lastname('竈門'),
-                Chara::AGE =>  new Age(15)
+            $this->charaFactory->factory([
+                Chara::ID => 1,
+                Chara::FIRSTNAME => new Firstname('炭治郎'),
+                Chara::LASTNAME => new Lastname('竈門'),
+                Chara::AGE => new Age(15)
             ]),
-            $this->charaFactory->create([
-                Chara::ID =>  2,
-                Chara::FIRSTNAME =>  new Firstname('禰󠄀豆子'),
-                Chara::LASTNAME =>  new Lastname('竈門'),
-                Chara::AGE =>  new Age(14)
+            $this->charaFactory->factory([
+                Chara::ID => 2,
+                Chara::FIRSTNAME => new Firstname('禰󠄀豆子'),
+                Chara::LASTNAME => new Lastname('竈門'),
+                Chara::AGE => new Age(14)
             ]),
-            $this->charaFactory->create([
-                Chara::ID =>  3,
-                Chara::FIRSTNAME =>  new Firstname('善逸'),
-                Chara::LASTNAME =>  new Lastname('我妻'),
-                Chara::AGE =>  new Age(16)
+            $this->charaFactory->factory([
+                Chara::ID => 3,
+                Chara::FIRSTNAME => new Firstname('善逸'),
+                Chara::LASTNAME => new Lastname('我妻'),
+                Chara::AGE => new Age(16)
             ]),
-            $this->charaFactory->create([
-                Chara::ID =>  4,
-                Chara::FIRSTNAME =>  new Firstname('伊之助'),
-                Chara::LASTNAME =>  new Lastname('嘴平'),
-                Chara::AGE =>  new Age(15)
+            $this->charaFactory->factory([
+                Chara::ID => 4,
+                Chara::FIRSTNAME => new Firstname('伊之助'),
+                Chara::LASTNAME => new Lastname('嘴平'),
+                Chara::AGE => new Age(15)
             ]),
-            $this->charaFactory->create([
-                Chara::ID =>  5,
-                Chara::FIRSTNAME =>  new Firstname('カナヲ'),
-                Chara::LASTNAME =>  new Lastname('栗花落'),
-                Chara::AGE =>  new Age(16)
+            $this->charaFactory->factory([
+                Chara::ID => 5,
+                Chara::FIRSTNAME => new Firstname('カナヲ'),
+                Chara::LASTNAME => new Lastname('栗花落'),
+                Chara::AGE => new Age(16)
             ]),
         ];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function store(int $id, Firstname $firstname, Lastname $lastname, Age $age): bool
+    {
+        try {
+            $chara = $this->charaFactory->factory([
+                Chara::ID => $id,
+                Chara::FIRSTNAME => $firstname,
+                Chara::LASTNAME => $lastname,
+                Chara::AGE => $age
+            ]);
+            $this->charas = array_merge($this->charas, $chara);
+            return true;
+        } catch (\Exception $e) {
+            return false;
+        }
     }
 
     /**

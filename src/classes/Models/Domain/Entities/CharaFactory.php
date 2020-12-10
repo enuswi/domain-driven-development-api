@@ -2,10 +2,13 @@
 namespace app\Models\Domain\Entities;
 
 use app\Models\Domain\Entities\Chara;
+use app\Models\Domain\ValueObjects\Chara\Age;
+use app\Models\Domain\ValueObjects\Chara\Firstname;
+use app\Models\Domain\ValueObjects\Chara\Lastname;
 
 class CharaFactory
 {
-    public function create(array $param)
+    public function factory(array $param)
     {
         try {
             if (!isset($param[Chara::ID]) || !$param[Chara::ID]) {
@@ -26,9 +29,9 @@ class CharaFactory
 
             return new Chara(
                 $param[Chara::ID],
-                $param[Chara::FIRSTNAME],
-                $param[Chara::LASTNAME],
-                $param[Chara::AGE]
+                new Firstname($param[Chara::FIRSTNAME]),
+                new Lastname($param[Chara::LASTNAME]),
+                new Age($param[Chara::AGE])
             );
         } catch (\Exception $e) {
             return null;
