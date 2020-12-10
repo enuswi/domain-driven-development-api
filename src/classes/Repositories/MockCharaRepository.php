@@ -34,33 +34,33 @@ class MockCharaRepository implements CharaRepositoryInterface
         $this->charas = [
             $this->charaFactory->factory([
                 Chara::ID => 1,
-                Chara::FIRSTNAME => new Firstname('炭治郎'),
-                Chara::LASTNAME => new Lastname('竈門'),
-                Chara::AGE => new Age(15)
+                Chara::FIRSTNAME => '炭治郎',
+                Chara::LASTNAME => '竈門',
+                Chara::AGE => 15
             ]),
             $this->charaFactory->factory([
                 Chara::ID => 2,
-                Chara::FIRSTNAME => new Firstname('禰󠄀豆子'),
-                Chara::LASTNAME => new Lastname('竈門'),
-                Chara::AGE => new Age(14)
+                Chara::FIRSTNAME => '禰󠄀豆子',
+                Chara::LASTNAME => '竈門',
+                Chara::AGE => 14
             ]),
             $this->charaFactory->factory([
                 Chara::ID => 3,
-                Chara::FIRSTNAME => new Firstname('善逸'),
-                Chara::LASTNAME => new Lastname('我妻'),
-                Chara::AGE => new Age(16)
+                Chara::FIRSTNAME => '善逸',
+                Chara::LASTNAME => '我妻',
+                Chara::AGE => 16
             ]),
             $this->charaFactory->factory([
                 Chara::ID => 4,
-                Chara::FIRSTNAME => new Firstname('伊之助'),
-                Chara::LASTNAME => new Lastname('嘴平'),
-                Chara::AGE => new Age(15)
+                Chara::FIRSTNAME => '伊之助',
+                Chara::LASTNAME => '嘴平',
+                Chara::AGE => 15
             ]),
             $this->charaFactory->factory([
                 Chara::ID => 5,
-                Chara::FIRSTNAME => new Firstname('カナヲ'),
-                Chara::LASTNAME => new Lastname('栗花落'),
-                Chara::AGE => new Age(16)
+                Chara::FIRSTNAME => 'カナヲ',
+                Chara::LASTNAME => '栗花落',
+                Chara::AGE => 16
             ]),
         ];
     }
