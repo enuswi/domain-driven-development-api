@@ -8,6 +8,10 @@ use app\Models\Domain\ValueObjects\Chara\Firstname;
 use app\Models\Domain\ValueObjects\Chara\Lastname;
 use app\Services\Domain\CharaService as CharaDomainService;
 
+/**
+ * Class CharaService
+ * @package app\Services\Application
+ */
 class CharaService
 {
     /**
@@ -20,6 +24,10 @@ class CharaService
      */
     protected $charaDomainService;
 
+    /**
+     * CharaService constructor.
+     * @param CharaRepositoryInterface $charaRepository
+     */
     public function __construct(
         CharaRepositoryInterface $charaRepository
     ) {
@@ -36,14 +44,19 @@ class CharaService
      */
     public function store(int $id, string $firstname, string $lastname, int $age): bool
     {
-        if ($this->charaDomainService->isExistById($id)) {
+        try {
+            if ($this->charaDomainService->isExistById($id)) {
+                throw new \Exception('Chara.id is already exists.');
+            }
+
+            $result = $this->charaRepository->store($id, new Firstname($firstname), new Lastname($lastname), new Age($age));
+            if (!$result) {
+                throw new \Exception('create chara failed.');
+            }
+            return true;
+        } catch (\Exception $e) {
             return false;
         }
-
-        if ($this->charaRepository->store($id, new Firstname($firstname), new Lastname($lastname), new Age($age))) {
-            return true;
-        }
-        return false;
     }
 
     /**
@@ -51,8 +64,8 @@ class CharaService
      */
     public function getCharaList(): array
     {
-        $charas = $this->charaRepository->getList();
-        foreach ($charas as $chara) {
+        $characters = $this->charaRepository->getList();
+        foreach ($characters as $chara) {
             /** @var Chara $chara */
             $list[] = $chara->toArray();
         }

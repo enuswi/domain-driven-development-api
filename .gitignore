@@ -2,3 +2,4 @@ src/vendor
 *.code-workspace
 launch.json
 .phpunit.result.cache
+.idea

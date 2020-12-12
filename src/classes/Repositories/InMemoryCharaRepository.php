@@ -39,6 +39,7 @@ class InMemoryCharaRepository extends AbstractInMemoryRepository implements Char
      * @param Firstname $firstname
      * @param Lastname $lastname
      * @param Age $age
+     * @throws \Exception
      * @return void
      */
     protected function insert(int $id, Firstname $firstname, Lastname $lastname, Age $age): void

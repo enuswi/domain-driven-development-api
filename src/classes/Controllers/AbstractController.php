@@ -42,7 +42,7 @@ abstract class AbstractController
     /**
      * APIレスポンス：Success
      * @param Response $response
-     * @param array $data
+     * @param array|null $data
      * @param int $statusCode
      * @param string $statusType
      * @return Response
@@ -60,7 +60,7 @@ abstract class AbstractController
     /**
      * APIレスポンス：Failed
      * @param Response $response
-     * @param array $data
+     * @param array|null $data
      * @param int $statusCode
      * @param string $statusType
      * @return Response
