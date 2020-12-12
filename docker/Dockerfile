@@ -58,6 +58,7 @@ RUN echo 'xdebug.start_with_request=yes' >> /etc/php.d/15-xdebug.ini
 RUN echo 'xdebug.client_host=host.docker.internal' >> /etc/php.d/15-xdebug.ini
 RUN echo 'xdebug.client_port=9901' >> /etc/php.d/15-xdebug.ini
 RUN echo 'xdebug.log=/tmp/xdebug.log' >> /etc/php.d/15-xdebug.ini
+RUN echo 'xdebug.idekey=PHPSTORM' >> /etc/php.d/15-xdebug.ini
 
 RUN systemctl enable httpd
 CMD ["/usr/sbin/httpd", "-DFOREGROUND"]
