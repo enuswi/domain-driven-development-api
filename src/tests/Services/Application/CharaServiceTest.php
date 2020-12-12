@@ -12,6 +12,9 @@ class CharaServiceTest extends TestCase
      */
     protected $charaService;
 
+    /**
+     * @var array|array[]
+     */
     protected $charaDatas = [];
 
     protected function setUp(): void
