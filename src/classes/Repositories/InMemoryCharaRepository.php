@@ -69,8 +69,8 @@ class InMemoryCharaRepository extends AbstractInMemoryRepository implements Char
     {
         $stmt = $this->pdo->prepare('SELECT * FROM Charas');
         $stmt->execute();
-        if ($charas = $stmt->fetchAll(\PDO::FETCH_ASSOC)) {
-            return $charas;
+        if ($characters = $stmt->fetchAll(\PDO::FETCH_ASSOC)) {
+            return $characters;
         }
         return [];
     }
@@ -111,8 +111,8 @@ class InMemoryCharaRepository extends AbstractInMemoryRepository implements Char
     {
         $list = [];
         try {
-            $charas = $this->fetchAll();
-            foreach ($charas as $chara) {
+            $characters = $this->fetchAll();
+            foreach ($characters as $chara) {
                 $list[] = $this->charaFactory->factory($chara);
             }
             return $list;

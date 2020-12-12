@@ -3,6 +3,9 @@ namespace app\Repositories;
 
 abstract class AbstractInMemoryRepository
 {
+    /**
+     * @var \PDO $pdo
+     */
     protected $pdo;
 
     public function __construct()
