@@ -37,7 +37,7 @@ class CharaController extends AbstractController
     public function index(Request $request, Response $response, array $args): Response
     {
         $data = $this->charaService->getCharaList();
-        return $this->responseSuccess($response, $data);
+        return $this->responseSuccess(response: $response, data: $data);
     }
 
     /**
@@ -45,18 +45,21 @@ class CharaController extends AbstractController
      * @param Request $request
      * @param Response $response
      * @param array $args
+     * @throws \Exception
      * @return Response
      */
     public function getById(Request $request, Response $response, array $args): Response
     {
-        $charaId = (int) $args['id'] ?? null;
-        if (!$charaId) {
-            return $this->responseError($response);
+        try {
+            $charaId = (int) $args['id'] ?? null;
+            if (!$charaId) throw new \Exception('Chara.id is not found.');
+
+            $chara = $this->charaService->getCharaById(id: $charaId);
+            if (!$chara) throw new \Exception('Chara not found.');
+
+            return $this->responseSuccess(response: $response, data: $chara);
+        } catch (\Exception $e) {
+            return  $this->responseError(response: $response);
         }
-        $chara = $this->charaService->getCharaById($charaId);
-        if (!$chara) {
-            return $this->responseError($response);
-        }
-        return $this->responseSuccess($response, $chara);
     }
 }
