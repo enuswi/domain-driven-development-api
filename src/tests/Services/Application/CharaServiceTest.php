@@ -1,7 +1,6 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use app\Models\Domain\Entities\Chara;
 use app\Repositories\InMemoryCharaRepository;
 use app\Services\Application\CharaService;
 
@@ -39,7 +38,7 @@ class CharaServiceTest extends TestCase
      * キャラ追加に成功
      * @return void
      */
-    public function test_store_success()
+    public function test_store_success(): void
     {
         $chara = $this->charaDatas[0];
         $result = $this->charaService->store(
@@ -55,7 +54,7 @@ class CharaServiceTest extends TestCase
      * キャラ追加に失敗（同一プライマリーキー）
      * @return void
      */
-    public function test_store_failed_exists_same_id()
+    public function test_store_failed_exists_same_id(): void
     {
         $chara1 = $this->charaDatas[0];
         $this->charaService->store(
@@ -78,7 +77,7 @@ class CharaServiceTest extends TestCase
      * idによるキャラ取得に成功
      * @return void
      */
-    public function test_get_chara_by_id_success()
+    public function test_get_chara_by_id_success(): void
     {
         $chara = $this->charaDatas[0];
         $this->charaService->store(
@@ -99,7 +98,7 @@ class CharaServiceTest extends TestCase
      * idによるキャラ取得に失敗
      * @return void
      */
-    public function test_get_chara_by_id_failed_not_exists()
+    public function test_get_chara_by_id_failed_not_exists(): void
     {
         $chara = $this->charaDatas[0];
         $this->charaService->store(
@@ -117,7 +116,7 @@ class CharaServiceTest extends TestCase
      * キャラ一覧の取得に成功
      * @return void
      */
-    public function test_get_charas_success()
+    public function test_get_chara_list_success(): void
     {
         foreach ($this->charaDatas as $chara) {
             $this->charaService->store(

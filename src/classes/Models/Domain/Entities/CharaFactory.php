@@ -32,10 +32,10 @@ class CharaFactory
             }
 
             return new Chara(
-                $param[Chara::ID],
-                new Firstname($param[Chara::FIRSTNAME]),
-                new Lastname($param[Chara::LASTNAME]),
-                new Age($param[Chara::AGE])
+                id: $param[Chara::ID],
+                firstname: new Firstname($param[Chara::FIRSTNAME]),
+                lastname: new Lastname($param[Chara::LASTNAME]),
+                age: new Age($param[Chara::AGE])
             );
         } catch (\Exception $e) {
             return null;

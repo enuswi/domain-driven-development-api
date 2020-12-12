@@ -45,14 +45,11 @@ class CharaService
     public function store(int $id, string $firstname, string $lastname, int $age): bool
     {
         try {
-            if ($this->charaDomainService->isExistById($id)) {
-                throw new \Exception('Chara.id is already exists.');
-            }
+            if ($this->charaDomainService->isExistById($id)) throw new \Exception('Chara.id is already exists.');
 
             $result = $this->charaRepository->store($id, new Firstname($firstname), new Lastname($lastname), new Age($age));
-            if (!$result) {
-                throw new \Exception('create chara failed.');
-            }
+            if (!$result) throw new \Exception('create chara failed.');
+
             return true;
         } catch (\Exception $e) {
             return false;
