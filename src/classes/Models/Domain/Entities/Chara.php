@@ -12,31 +12,11 @@ class Chara extends AbstractEntity
     const LASTNAME  = 'lastname';
     const AGE       = 'age';
 
-    /**
-     * @param int $id
-     */
-    private $id;
-
-    /**
-     * @param Firstname $firstname
-     */
-    private $firstname;
-
-    /**
-     * @param Lastname $lastname
-     */
-    private $lastname;
-
-    /**
-     * @param Age $age
-     */
-    private $age;
-
     public function __construct(
-        int $id,
-        Firstname $firstname,
-        Lastname $lastname,
-        Age $age
+        private int $id,
+        private Firstname $firstname,
+        private Lastname $lastname,
+        private Age $age
     ) {
         $this->id = $id;
         $this->firstname = $firstname;

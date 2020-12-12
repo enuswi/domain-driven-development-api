@@ -10,15 +10,10 @@ use Psr\Container\ContainerInterface;
 abstract class AbstractController
 {
     /**
-     * @var ContainerInterface $container
-     */
-    protected $container;
-
-    /**
      * @param ContainerInterface $container
      * @return void
      */
-    public function __construct(ContainerInterface $container)
+    public function __construct(protected ContainerInterface $container)
     {
         $this->container = $container;
     }

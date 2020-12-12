@@ -4,7 +4,7 @@ namespace app\Models\Domain\ValueObjects;
 abstract class AbstractValueObject
 {
     /**
-     * @return mixed
+     * @return int|string
      */
-    abstract public function getValue();
+    abstract public function getValue(): int|string;
 }

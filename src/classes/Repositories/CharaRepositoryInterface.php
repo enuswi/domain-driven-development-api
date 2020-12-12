@@ -30,5 +30,5 @@ interface CharaRepositoryInterface
      * @param int $id
      * @return Chara|bool
      */
-    public function getById(int $id);
+    public function getById(int $id): Chara|bool;
 }

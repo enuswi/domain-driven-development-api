@@ -1,6 +1,7 @@
 <?php
 namespace app\Repositories;
 
+use app\Models\Domain\Entities\Chara;
 use app\Models\Domain\ValueObjects\Chara\Firstname;
 use app\Models\Domain\ValueObjects\Chara\Lastname;
 use app\Models\Domain\ValueObjects\Chara\Age;
@@ -26,7 +27,7 @@ class CharaRepository implements CharaRepositoryInterface
     /**
      * {@inheritdoc}
      */
-    public function getById(int $id)
+    public function getById(int $id): Chara|bool
     {
         return false;
     }

@@ -63,7 +63,7 @@ class CharaService
      * @param int $id
      * @return array
      */
-    public function getCharaById(int $id)
+    public function getCharaById(int $id): array
     {
         $chara = $this->charaRepository->getById($id);
         if (!$chara) {

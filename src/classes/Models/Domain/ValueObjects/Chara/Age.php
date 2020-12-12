@@ -5,16 +5,11 @@ use app\Models\Domain\ValueObjects\AbstractValueObject;
 
 class Age extends AbstractValueObject
 {
-    /**
-     * @var int $value
-     */
-    private $value;
-
-    public function __construct(int $value)
+    public function __construct(private int $value)
     {
         // 正整数でなければ、例外を投げる
         if ($value < 0) {
-            throw new \Exception('');
+            throw new \Exception('Chara.age is invalid.');
         }
         $this->value = $value;
     }

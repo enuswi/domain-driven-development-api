@@ -1,6 +1,7 @@
 <?php
 namespace app\Repositories;
 
+use app\Models\Domain\Entities\Chara;
 use app\Models\Domain\Entities\CharaFactory;
 use app\Models\Domain\ValueObjects\Chara\Age;
 use app\Models\Domain\ValueObjects\Chara\Firstname;
@@ -123,16 +124,16 @@ class InMemoryCharaRepository extends AbstractInMemoryRepository implements Char
     /**
      * {@inheritdoc}
      */
-    public function getById(int $id)
+    public function getById(int $id): Chara|bool
     {
         try {
-            if ($chara = $this->fetchById($id)) {
-                return $this->charaFactory->factory($chara);
+            $chara = $this->fetchById($id);
+            if (!$chara) {
+                throw new \Exception('Chara not found.');
             }
-
-            throw new \Exception();
+            return $this->charaFactory->factory($chara);
         } catch (\Exception $e) {
-            return null;
         }
+        return false;
     }
 }

@@ -5,12 +5,7 @@ use app\Models\Domain\ValueObjects\AbstractValueObject;
 
 class BaseName extends AbstractValueObject
 {
-    /**
-     * @var string $value
-     */
-    private $value;
-
-    public function __construct(string $value)
+    public function __construct(private string $value)
     {
         $this->value = $value;
     }
@@ -18,7 +13,7 @@ class BaseName extends AbstractValueObject
     /**
      * @return string
      */
-    public function getValue()
+    public function getValue(): string
     {
         return $this->value;
     }

@@ -95,7 +95,7 @@ class MockCharaRepository implements CharaRepositoryInterface
     /**
      * {@inheritdoc}
      */
-    public function getById(int $id)
+    public function getById(int $id): Chara|bool
     {
         // 配列のキーに併せる為に、1引く
         $id --;
