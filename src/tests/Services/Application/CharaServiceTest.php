@@ -1,4 +1,5 @@
 <?php
+namespace test\Services\Application;
 
 use PHPUnit\Framework\TestCase;
 use app\Repositories\InMemoryCharaRepository;
@@ -9,19 +10,19 @@ class CharaServiceTest extends TestCase
     /**
      * @var CharaService $charaService
      */
-    protected $charaService;
+    protected CharaService $charaService;
 
     /**
      * @var array|array[]
      */
-    protected $charaDatas = [];
+    protected array $charaData = [];
 
     protected function setUp(): void
     {
         $repository = new InMemoryCharaRepository;
         $this->charaService = new CharaService($repository);
 
-        $this->charaDatas = [
+        $this->charaData = [
             ['id' => 1, 'firstname' => '義勇', 'lastname' => '富岡', 'age' => 19],
             ['id' => 2, 'firstname' => 'しのぶ', 'lastname' => '胡蝶', 'age' => 18],
             ['id' => 3, 'firstname' => '杏寿郎', 'lastname' => '煉獄', 'age' => 20],
@@ -40,7 +41,7 @@ class CharaServiceTest extends TestCase
      */
     public function test_store_success(): void
     {
-        $chara = $this->charaDatas[0];
+        $chara = $this->charaData[0];
         $result = $this->charaService->store(
             $chara['id'],
             $chara['firstname'],
@@ -56,14 +57,14 @@ class CharaServiceTest extends TestCase
      */
     public function test_store_failed_exists_same_id(): void
     {
-        $chara1 = $this->charaDatas[0];
+        $chara1 = $this->charaData[0];
         $this->charaService->store(
             $chara1['id'],
             $chara1['firstname'],
             $chara1['lastname'],
             $chara1['age']
         );
-        $chara2 = $this->charaDatas[1];
+        $chara2 = $this->charaData[1];
         $result = $this->charaService->store(
             $chara1['id'],
             $chara2['firstname'],
@@ -79,7 +80,7 @@ class CharaServiceTest extends TestCase
      */
     public function test_get_chara_by_id_success(): void
     {
-        $chara = $this->charaDatas[0];
+        $chara = $this->charaData[0];
         $this->charaService->store(
             $chara['id'],
             $chara['firstname'],
@@ -100,7 +101,7 @@ class CharaServiceTest extends TestCase
      */
     public function test_get_chara_by_id_failed_not_exists(): void
     {
-        $chara = $this->charaDatas[0];
+        $chara = $this->charaData[0];
         $this->charaService->store(
             $chara['id'],
             $chara['firstname'],
@@ -118,7 +119,7 @@ class CharaServiceTest extends TestCase
      */
     public function test_get_chara_list_success(): void
     {
-        foreach ($this->charaDatas as $chara) {
+        foreach ($this->charaData as $chara) {
             $this->charaService->store(
                 $chara['id'],
                 $chara['firstname'],
@@ -128,6 +129,6 @@ class CharaServiceTest extends TestCase
         }
 
         $characters = $this->charaService->getCharaList();
-        $this->assertCount(count($this->charaDatas), $characters);
+        $this->assertCount(count($this->charaData), $characters);
     }
 }

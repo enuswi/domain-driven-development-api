@@ -6,7 +6,7 @@ abstract class AbstractInMemoryRepository
     /**
      * @var \PDO $pdo
      */
-    protected $pdo;
+    protected \PDO $pdo;
 
     public function __construct()
     {

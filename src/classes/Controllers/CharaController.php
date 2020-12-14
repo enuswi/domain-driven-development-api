@@ -4,7 +4,7 @@ namespace app\Controllers;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Container\ContainerInterface;
-use app\Repositories\CharaRepository;
+use app\Repositories\CharaRepositoryInterface;
 use app\Services\Application\CharaService;
 
 class CharaController extends AbstractController
@@ -12,12 +12,12 @@ class CharaController extends AbstractController
     /**
      * @var CharaService $charaService
      */
-    protected $charaService;
+    protected CharaService $charaService;
 
     /**
-     * @var CharaRepository $charaRepository
+     * @var CharaRepositoryInterface $charaRepository
      */
-    protected $charaRepository;
+    protected CharaRepositoryInterface $charaRepository;
 
     public function __construct(ContainerInterface $container)
     {

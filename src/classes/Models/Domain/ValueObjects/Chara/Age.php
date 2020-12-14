@@ -5,6 +5,11 @@ use app\Models\Domain\ValueObjects\AbstractValueObject;
 
 class Age extends AbstractValueObject
 {
+    /**
+     * Age constructor.
+     * @param int $value
+     * @throws \Exception
+     */
     public function __construct(private int $value)
     {
         // 正整数でなければ、例外を投げる

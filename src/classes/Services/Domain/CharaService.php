@@ -5,6 +5,10 @@ use app\Repositories\CharaRepositoryInterface;
 
 class CharaService
 {
+    /**
+     * CharaService constructor.
+     * @param CharaRepositoryInterface $charaRepository
+     */
     public function __construct(protected CharaRepositoryInterface $charaRepository)
     {
         $this->charaRepository = $charaRepository;

@@ -17,12 +17,12 @@ class CharaService
     /**
      * @param CharaRepositoryInterface $charaRepository
      */
-    protected $charaRepository;
+    protected CharaRepositoryInterface $charaRepository;
 
     /**
      * @var CharaDomainService $charaDomainService
      */
-    protected $charaDomainService;
+    protected CharaDomainService $charaDomainService;
 
     /**
      * CharaService constructor.
