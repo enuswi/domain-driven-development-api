@@ -1,4 +1,5 @@
 <?php
+namespace test\Services\Domain;
 
 use PHPUnit\Framework\TestCase;
 use app\Services\Domain\CharaService;
@@ -10,17 +11,17 @@ class CharaServiceTest extends TestCase
     /**
      * @var CharaService
      */
-    protected $charaService;
+    protected CharaService $charaService;
 
     /**
      * @var ApplicationCharaService
      */
-    protected $applicationCharaService;
+    protected ApplicationCharaService $applicationCharaService;
 
     /**
      * @var array|array[]
      */
-    protected $charaDatas = [];
+    protected array $charaData = [];
 
     protected function setup(): void
     {
@@ -28,7 +29,7 @@ class CharaServiceTest extends TestCase
         $this->charaService = new CharaService($repository);
         $this->applicationCharaService = new ApplicationCharaService($repository);
 
-        $this->charaDatas = [
+        $this->charaData = [
             ['id' => 1, 'firstname' => '義勇', 'lastname' => '富岡', 'age' => 19],
             ['id' => 2, 'firstname' => 'しのぶ', 'lastname' => '胡蝶', 'age' => 18],
             ['id' => 3, 'firstname' => '杏寿郎', 'lastname' => '煉獄', 'age' => 20],
@@ -48,10 +49,10 @@ class CharaServiceTest extends TestCase
     public function test_is_exists_true(): void
     {
         $this->applicationCharaService->store(
-            id: $this->charaDatas[0]['id'],
-            firstname: $this->charaDatas[0]['firstname'],
-            lastname: $this->charaDatas[0]['lastname'],
-            age: $this->charaDatas[0]['age']
+            id: $this->charaData[0]['id'],
+            firstname: $this->charaData[0]['firstname'],
+            lastname: $this->charaData[0]['lastname'],
+            age: $this->charaData[0]['age']
         );
         $this->assertEquals(expected: true, actual: $this->charaService->isExistById(1));
     }
@@ -63,10 +64,10 @@ class CharaServiceTest extends TestCase
     public function test_is_exists_false(): void
     {
         $this->applicationCharaService->store(
-            id: $this->charaDatas[0]['id'],
-            firstname: $this->charaDatas[0]['firstname'],
-            lastname: $this->charaDatas[0]['lastname'],
-            age: $this->charaDatas[0]['age']
+            id: $this->charaData[0]['id'],
+            firstname: $this->charaData[0]['firstname'],
+            lastname: $this->charaData[0]['lastname'],
+            age: $this->charaData[0]['age']
         );
         $this->assertEquals(expected: false, actual: $this->charaService->isExistById(2));
     }

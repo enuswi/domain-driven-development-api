@@ -5,6 +5,10 @@ use app\Models\Domain\ValueObjects\AbstractValueObject;
 
 class BaseName extends AbstractValueObject
 {
+    /**
+     * BaseName constructor.
+     * @param string $value
+     */
     public function __construct(private string $value)
     {
         $this->value = $value;

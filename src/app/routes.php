@@ -11,7 +11,7 @@ use Slim\Interfaces\RouteCollectorProxyInterface;
 
 $app->group('/api', function (RouteCollectorProxyInterface $group) {
 	$group->group('/v1', function (RouteCollectorProxyInterface $group) {
-		$group->get('/get_charas', \app\Controllers\CharaController::class)->setName('get_charas'); // キャラ一覧取得API
+		$group->get('/get_chara_list', \app\Controllers\CharaController::class)->setName('get_chara_list'); // キャラ一覧取得API
 		$group->get('/get_chara/{id:[0-9]+}', \app\Controllers\CharaController::class . ':getById')->setName('get_chara'); // キャラ取得API
 	});
 });

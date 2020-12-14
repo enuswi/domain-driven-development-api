@@ -12,12 +12,12 @@ class CharaController extends AbstractController
     /**
      * @var CharaService $charaService
      */
-    protected $charaService;
+    protected CharaService $charaService;
 
     /**
      * @var CharaRepository $charaRepository
      */
-    protected $charaRepository;
+    protected CharaRepository $charaRepository;
 
     public function __construct(ContainerInterface $container)
     {

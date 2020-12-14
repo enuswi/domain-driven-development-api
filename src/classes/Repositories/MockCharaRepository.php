@@ -12,12 +12,12 @@ class MockCharaRepository implements CharaRepositoryInterface
     /**
      * @var CharaFactory $charaFactory
      */
-    protected $charaFactory;
+    protected CharaFactory $charaFactory;
 
     /**
-     * @var array $charas
+     * @var array $characters
      */
-    protected $charas;
+    protected array $characters;
 
     public function __construct()
     {
@@ -31,7 +31,7 @@ class MockCharaRepository implements CharaRepositoryInterface
      */
     protected function generateMockData(): void
     {
-        $this->charas = [
+        $this->characters = [
             $this->charaFactory->factory([
                 Chara::ID => 1,
                 Chara::FIRSTNAME => '炭治郎',
@@ -77,7 +77,7 @@ class MockCharaRepository implements CharaRepositoryInterface
                 Chara::LASTNAME => $lastname,
                 Chara::AGE => $age
             ]);
-            $this->charas = array_merge($this->charas, $chara);
+            $this->characters = array_merge($this->characters, $chara);
             return true;
         } catch (\Exception $e) {
             return false;
@@ -89,7 +89,7 @@ class MockCharaRepository implements CharaRepositoryInterface
      */
     public function getList(): array
     {
-        return $this->charas;
+        return $this->characters;
     }
 
     /**
@@ -99,9 +99,9 @@ class MockCharaRepository implements CharaRepositoryInterface
     {
         // 配列のキーに併せる為に、1引く
         $id --;
-        if ($id < 0 || count($this->charas) < $id) {
+        if ($id < 0 || count($this->characters) < $id) {
             return false;
         }
-        return $this->charas[$id];
+        return $this->characters[$id];
     }
 }

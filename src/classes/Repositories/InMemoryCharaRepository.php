@@ -12,8 +12,11 @@ class InMemoryCharaRepository extends AbstractInMemoryRepository implements Char
     /**
      * @var CharaFactory $charaFactory
      */
-    protected $charaFactory;
+    protected CharaFactory $charaFactory;
 
+    /**
+     * InMemoryCharaRepository constructor.
+     */
     public function __construct()
     {
         parent::__construct();
